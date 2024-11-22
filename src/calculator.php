@@ -35,7 +35,9 @@ class Calculator {
                 $buf = '';
                 $last = 1;
             }else{
-                if(!is_numeric($t)){
+                if($t === 'e'){
+                    $buf = (string)M_E;
+                }if(!is_numeric($t)){
                     if($t !== '.'){
                         $this -> error('错误的表达式字符 => ' . $t);
                     }
