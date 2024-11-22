@@ -17,23 +17,29 @@ class Calculator {
                 $ptr++;
                 continue;
             }
-            if($t === '+' || ($t === '-' && $signal === -1)){
+            if($last === 1 && $signal === 1 && $t === '-'){
+                $signal = -1;
+                $buf .= $t;
+                $ptr++;
+                continue;
+            }
+            if($t === '+' || ($t === '-' && $signal === 1)){
                 if($buf == NULL || $last === 1) $this -> error('错误的表达式类型');
-                $node = $node -> add('val', PRIORITY_VAL, $signal * $buf)
+                $node = $node -> add('val', PRIORITY_VAL, $buf)
                               -> add($t, PRIORITY_PS);
                 $buf = '';
                 $last = 1;
                 $signal = 1;
             }else if($t === '*' || $t === '/' || $t === '%'){
                 if($buf == NULL || $last === 1) $this -> error('错误的表达式类型');
-                $node = $node -> add('val', PRIORITY_VAL, $signal * $buf)
+                $node = $node -> add('val', PRIORITY_VAL, $buf)
                               -> add($t, PRIORITY_MD);
                 $buf = '';
                 $last = 1;
                 $signal = 1;
             }else if($t === '^'){
                 if($buf == NULL || $last === 1) $this -> error('错误的表达式类型');
-                $node = $node -> add('val', PRIORITY_VAL, $signal * $buf)
+                $node = $node -> add('val', PRIORITY_VAL, $buf)
                               -> add($t, PRIORITY_POW);
                 $buf = '';
                 $last = 1;
