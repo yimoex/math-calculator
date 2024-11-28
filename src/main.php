@@ -13,5 +13,5 @@ include 'calculator.php';
 include 'node.php';
 
 $cal = new Calculator();
-$rec = $cal -> run('5*9/2+4+1*2^2%1');
+$rec = $cal -> run('e^-1*2');
 var_dump($rec);

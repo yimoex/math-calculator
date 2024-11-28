@@ -10,15 +10,14 @@ class Calculator {
         $length = strlen($string);
         $buf = '';
         $last = 0; //0表示操作符,1为值
-        $signal = 1; // -1 or 1表达正负
         do{
             $t = $string[$ptr];
+            if($t === 'x') $t = '*';
             if($t == ' '){
                 $ptr++;
                 continue;
             }
-            if($last === 1 && $signal === 1 && $t === '-'){
-                $signal = -1;
+            if($last === 1 && $t === '-'){
                 $buf .= $t;
                 $ptr++;
                 continue;
@@ -46,12 +45,14 @@ class Calculator {
                 $signal = 1;
             }else{
                 if($t === 'e'){
-                    $buf = (string)M_E;
+                    $buf .= (string)M_E;
+                    $ptr++;
+                    continue;
                 }else if($t === 'p'){
-                    $buf = (string)M_PI;
-                }else if($t === '-'){
-                    $signal = -1;
-                }if(!is_numeric($t)){
+                    $buf .= (string)M_PI;
+                    $ptr++;
+                    continue;
+                }else if(!is_numeric($t)){
                     if($t !== '.'){
                         $this -> error('错误的表达式字符 => ' . $t);
                     }
